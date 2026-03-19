@@ -3,18 +3,18 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56; // 兼容Xcode 15+的正确版本号
+	objectVersion = 56;
 	objects = {
 		/* 项目根对象 */
 		00E356F12A9E7D0B00CFB121 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastUpgradeCheck = 1600; // 适配Xcode 16
+				LastUpgradeCheck = 1600;
 				ORGANIZATIONNAME = "";
 			};
 			buildConfigurationList = 00E356F42A9E7D0B00CFB121 /* Build configuration list for PBXProject "Demo" */;
-			compatibilityVersion = "Xcode 15.0"; // 兼容版本
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -36,7 +36,7 @@
 			children = (
 				00C302E62A9E7D1700CFB121 /* Info.plist */,
 				00C302E72A9E7D1700CFB121 /* main.m */,
-				00E357002A9E7D0B00CFB121 /* Assets.xcassets */, // 图标资源引用
+				00E357002A9E7D0B00CFB121 /* Assets.xcassets */,
 				00E356F32A9E7D0B00CFB121 /* Products */,
 			);
 			name = Demo;
@@ -44,7 +44,7 @@
 		};
 
 		/* Products分组 */
-		00E356F32A9E7D0B00CFB121 /* Products */ = {
+		00E356F32A9E7D0B00CFB121 = {
 			isa = PBXGroup;
 			children = (
 				00C302E42A9E7D1700CFB121 /* Demo.app */,
@@ -54,7 +54,7 @@
 		};
 
 		/* 项目构建配置 */
-		00E356F42A9E7D0B00CFB121 /* Build configuration list for PBXProject "Demo" */ = {
+		00E356F42A9E7D0B00CFB121 = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F52A9E7D0B00CFB121 /* Release */,
@@ -64,7 +64,7 @@
 		};
 
 		/* 项目Release配置 */
-		00E356F52A9E7D0B00CFB121 /* Release */ = {
+		00E356F52A9E7D0B00CFB121 = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
@@ -76,7 +76,7 @@
 		};
 
 		/* 应用Target */
-		00C302E52A9E7D1700CFB121 /* Demo */ = {
+		00C302E52A9E7D1700CFB121 = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00C302E82A9E7D1700CFB121 /* Build configuration list for PBXNativeTarget "Demo" */;
 			buildPhases = (
@@ -93,7 +93,7 @@
 		};
 
 		/* 应用.app引用 */
-		00C302E42A9E7D1700CFB121 /* Demo.app */ = {
+		00C302E42A9E7D1700CFB121 = {
 			isa = PBXFileReference;
 			explicitFileType = wrapper.application;
 			includeInIndex = 0;
@@ -102,7 +102,7 @@
 		};
 
 		/* Info.plist引用 */
-		00C302E62A9E7D1700CFB121 /* Info.plist */ = {
+		00C302E62A9E7D1700CFB121 = {
 			isa = PBXFileReference;
 			lastKnownFileType = text.plist.xml;
 			path = Demo/Info.plist;
@@ -110,15 +110,15 @@
 		};
 
 		/* main.m引用 */
-		00C302E72A9E7D1700CFB121 /* main.m */ = {
+		00C302E72A9E7D1700CFB121 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.objc;
 			path = Demo/main.m;
 			sourceTree = "<group>";
 		};
 
-		/* Assets.xcassets引用（图标资源） */
-		00E357002A9E7D0B00CFB121 /* Assets.xcassets */ = {
+		/* Assets.xcassets引用（对应你的路径Demo/Assets.xcassets） */
+		00E357002A9E7D0B00CFB121 = {
 			isa = PBXFileReference;
 			lastKnownFileType = folder.assetcatalog;
 			path = Demo/Assets.xcassets;
@@ -126,7 +126,7 @@
 		};
 
 		/* 源码编译阶段 */
-		00C302E22A9E7D1700CFB121 /* Sources */ = {
+		00C302E22A9E7D1700CFB121 = {
 			isa = PBXSourcesBuildPhase;
 			files = (
 				00C302E32A9E7D1700CFB121 /* main.m in Sources */,
@@ -135,13 +135,13 @@
 		};
 
 		/* main.m编译文件引用 */
-		00C302E32A9E7D1700CFB121 /* main.m in Sources */ = {
+		00C302E32A9E7D1700CFB121 = {
 			isa = PBXBuildFile;
 			fileRef = 00C302E72A9E7D1700CFB121 /* main.m */;
 		};
 
 		/* Target构建配置列表 */
-		00C302E82A9E7D1700CFB121 /* Build configuration list for PBXNativeTarget "Demo" */ = {
+		00C302E82A9E7D1700CFB121 = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00C302E92A9E7D1700CFB121 /* Release */,
@@ -150,12 +150,13 @@
 			defaultConfigurationName = Release;
 		};
 
-		/* Target Release配置 */
-		00C302E92A9E7D1700CFB121 /* Release */ = {
+		/* Target Release配置（核心：指定图标集名称） */
+		00C302E92A9E7D1700CFB121 = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -163,12 +164,13 @@
 				INFOPLIST_FILE = Demo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourname.Demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGNING_REQUIRED = NO;
 				CODE_SIGNING_ALLOWED = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon; // 关键：指定图标名称
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 			};
 			name = Release;
 		};
