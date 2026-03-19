@@ -1,64 +1,46 @@
 #import <UIKit/UIKit.h>
 
-// 1. 自定义AppDelegate（必须实现UIApplicationDelegate协议）
+// 【第一步：先声明自定义控制器类】必须在使用前声明
+@interface DemoViewController : UIViewController
+@end
+
+// 【第二步：声明AppDelegate类】
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 @property (strong, nonatomic) UIWindow *window;
 @end
 
-@implementation AppDelegate
-
-// App启动完成后执行
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // 2. 创建主窗口
-    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    
-    // 3. 创建根页面（自定义ViewController）
-    DemoViewController *vc = [[DemoViewController alloc] init];
-    self.window.rootViewController = vc;
-    
-    // 4. 显示窗口
-    [self.window makeKeyAndVisible];
-    
-    return YES;
-}
-
-@end
-
-// 5. 自定义页面ViewController
-@interface DemoViewController : UIViewController
-@end
-
+// 【第三步：实现DemoViewController】
 @implementation DemoViewController
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // 设置页面背景色（适配深浅模式）
-    self.view.backgroundColor = [UIColor systemBackgroundColor];
-    
-    // 添加标题
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 150, self.view.bounds.size.width, 50)];
-    titleLabel.text = @"我的Demo App";
-    titleLabel.font = [UIFont systemFontOfSize:28 weight:UIFontWeightBold];
-    titleLabel.textAlignment = NSTextAlignmentCenter;
-    titleLabel.textColor = [UIColor labelColor];
-    [self.view addSubview:titleLabel];
-    
-    // 添加描述
-    UILabel *descLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 220, self.view.bounds.size.width, 30)];
-    descLabel.text = @"图标+页面 打包成功 🎉";
-    descLabel.font = [UIFont systemFontOfSize:18];
-    descLabel.textAlignment = NSTextAlignmentCenter;
-    descLabel.textColor = [UIColor secondaryLabelColor];
-    [self.view addSubview:descLabel];
+    // 设置页面背景
+    self.view.backgroundColor = [UIColor whiteColor];
+    // 添加测试文字
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 200, self.view.bounds.size.width, 40)];
+    label.text = @"打包成功！";
+    label.font = [UIFont systemFontOfSize:24 weight:UIFontWeightMedium];
+    label.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:label];
 }
-
 @end
 
-// 6. 程序入口（正确的UIApplicationMain用法）
+// 【第四步：实现AppDelegate】（此时DemoViewController已声明，可正常使用）
+@implementation AppDelegate
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    // 创建窗口
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    // 实例化自定义控制器（关键：此时类已声明，编译器能识别）
+    DemoViewController *vc = [[DemoViewController alloc] init];
+    self.window.rootViewController = vc;
+    // 显示窗口
+    [self.window makeKeyAndVisible];
+    return YES;
+}
+@end
+
+// 【程序入口】
 int main(int argc, char * argv[]) {
     @autoreleasepool {
-        // 正确传参：第四个参数传AppDelegate类名
         return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
     }
 }
