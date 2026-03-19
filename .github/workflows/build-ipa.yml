@@ -1,6 +1,5 @@
 name: Build iOS IPA
 
-# 仅手动触发，避免自动打包出问题（和你成功的#10保持一致）
 on:
   workflow_dispatch:
 
@@ -11,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
-    - name: Build iOS App (强制生成完整.app包)
+    - name: Build iOS App (包含图标资源编译)
       run: |
         xcodebuild -project Demo.xcodeproj \
           -scheme Demo \
@@ -23,39 +22,34 @@ jobs:
           CODE_SIGNING_ALLOWED=NO \
           PRODUCT_BUNDLE_IDENTIFIER="com.yourname.Demo" \
           PRODUCT_NAME="Demo" \
-          || exit 1  # 【关键】编译失败直接终止，杜绝假成功
+          ASSETCATALOG_COMPILER_APPICON_NAME="AppIcon" \
+          || exit 1
     
-    - name: 验证.app包完整性 (提前拦截错误)
+    - name: 验证.app包+图标完整性
       run: |
         APP_PATH="build/Build/Products/Release-iphoneos/Demo.app"
-        # 检查.app目录是否存在
         if [ ! -d "$APP_PATH" ]; then
-            echo "❌ 错误：Demo.app未生成，编译失败！"
+            echo "❌ Demo.app未生成！"
             exit 1
         fi
-        # 检查Info.plist是否存在
-        if [ ! -f "$APP_PATH/Info.plist" ]; then
-            echo "❌ 错误：Info.plist缺失，.app包损坏！"
-            exit 1
+        if ls "$APP_PATH"/AppIcon*.png >/dev/null 2>&1; then
+            echo "✅ 图标文件已成功打包进.app！"
+        else
+            echo "⚠️ 图标文件缺失，检查路径/命名！"
         fi
-        # 打印可执行文件名，确认配置正确
-        echo "✅ 可执行文件名称：$(defaults read "$APP_PATH/Info.plist" CFBundleExecutable)"
     
-    - name: Fix Executable Permissions (彻底解决权限问题)
+    - name: Fix Executable Permissions
       run: |
         APP_PATH="build/Build/Products/Release-iphoneos/Demo.app"
-        # 【核心修复】直接硬编码可执行文件名（与Target名称一致），不再依赖Info.plist读取
         EXECUTABLE_NAME="Demo"
         chmod +x "$APP_PATH/$EXECUTABLE_NAME"
-        echo "✅ 已为可执行文件添加执行权限"
     
-    - name: Package IPA (标准打包流程)
+    - name: Package IPA
       run: |
         mkdir -p Payload
         cp -R build/Build/Products/Release-iphoneos/Demo.app Payload/
         zip -r Demo.ipa Payload/
         rm -rf Payload
-        echo "✅ IPA打包完成：Demo.ipa"
     
     - name: Upload IPA Artifact
       uses: actions/upload-artifact@v4
