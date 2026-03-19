@@ -17,7 +17,7 @@
     
     // 添加测试标签
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 200, self.view.bounds.size.width, 40)];
-    label.text = @"打包成功！";
+    label.text = @"爱你哦，小果";
     label.font = [UIFont systemFontOfSize:24 weight:UIFontWeightMedium];
     label.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:label];
