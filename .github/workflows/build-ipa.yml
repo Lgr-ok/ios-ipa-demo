@@ -1,15 +1,21 @@
 name: 打包无签名IPA
 on:
-  workflow_dispatch:  # 必须有，才能手动触发打包
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: macos-latest
     steps:
       - name: 拉取代码
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
-      - name: 编译生成.app
+      - name: 打印完整项目结构（排查用）
+        run: |
+          ls -R
+          echo "--- 检查project.pbxproj ---"
+          cat Demo.xcodeproj/project.pbxproj | head -50
+
+      - name: 无签名编译.app
         run: |
           xcodebuild build \
             -project Demo.xcodeproj \
@@ -20,14 +26,17 @@ jobs:
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO
 
-      - name: 打包成IPA
+      - name: 检查编译产物
+        run: ls -la build/Release-iphoneos/
+
+      - name: 打包为标准IPA
         run: |
           cd build/Release-iphoneos
-          mkdir Payload
-          mv Demo.app Payload/
+          mkdir -p Payload
+          mv *.app Payload/
           zip -r demo.ipa Payload/
 
-      - name: 上传IPA
+      - name: 上传IPA供下载
         uses: actions/upload-artifact@v4
         with:
           name: my-ipa
