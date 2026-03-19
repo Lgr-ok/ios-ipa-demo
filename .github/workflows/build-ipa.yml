@@ -31,13 +31,27 @@ jobs:
 
       - name: 打包为标准IPA
         run: |
+          # 进入正确的编译产物目录
           cd build/Build/Products/Release-iphoneos/
+          # 检查是否存在.app文件，不存在则终止
+          if [ ! -f "Demo.app/Info.plist" ]; then
+              echo "错误：未找到Demo.app文件，编译失败！"
+              exit 1
+          fi
+          # 创建Payload目录并移动.app文件
           mkdir -p Payload
-          mv *.app Payload/
+          mv Demo.app Payload/  # 【优化】指定具体文件名，避免*.app匹配错误
+          # 打包IPA
           zip -r demo.ipa Payload/
+          # 【修复】把IPA复制到根目录，方便上传（可选，也可直接改上传路径）
+          cp demo.ipa ../../../../../../demo.ipa
 
       - name: 上传IPA供下载
         uses: actions/upload-artifact@v4
         with:
           name: my-ipa
-          path: build/Release-iphoneos/demo.ipa
+          # 【核心修复】路径改为实际生成IPA的位置（二选一即可）
+          # 方案1：用复制到根目录的IPA（推荐，路径更简单）
+          path: demo.ipa
+          # 方案2：直接指向原路径（也可）
+          # path: build/Build/Products/Release-iphoneos/demo.ipa
