@@ -100,19 +100,19 @@
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 
-		/* Info.plist引用 - 【修改点1】去掉Demo/前缀 */
+		/* Info.plist引用 - 【修复】恢复Demo/前缀，匹配实际文件路径 */
 		00C302E62A9E7D1700CFB121 /* Info.plist */ = {
 			isa = PBXFileReference;
 			lastKnownFileType = text.plist.xml;
-			path = Info.plist;  // 原路径：Demo/Info.plist
+			path = Demo/Info.plist;
 			sourceTree = "<group>";
 		};
 
-		/* main.m引用 - 【修改点2】去掉Demo/前缀 */
+		/* main.m引用 - 【修复】恢复Demo/前缀，匹配实际文件路径 */
 		00C302E72A9E7D1700CFB121 /* main.m */ = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.objc;
-			path = main.m;  // 原路径：Demo/main.m
+			path = Demo/main.m;
 			sourceTree = "<group>";
 		};
 
@@ -141,7 +141,7 @@
 			defaultConfigurationName = Release;
 		};
 
-		/* Target Release配置 - 【修改点3】INFOPLIST_FILE去掉Demo/前缀 */
+		/* Target Release配置 - 【修复】恢复Demo/前缀，匹配实际文件路径 */
 		00C302E92A9E7D1700CFB121 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -151,7 +151,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				INFOPLIST_FILE = Info.plist;  // 原路径：Demo/Info.plist
+				INFOPLIST_FILE = Demo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
