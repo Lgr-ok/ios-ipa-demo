@@ -17,21 +17,21 @@ jobs:
 
       - name: 无签名编译.app
         run: |
-          xcodebuild build \
-            -project Demo.xcodeproj \
-            -scheme Demo \
-            -configuration Release \
-            -destination 'generic/platform=iOS' \
-            CODE_SIGN_IDENTITY="" \
-            CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_ALLOWED=NO
+          xcodebuild -project Demo.xcodeproj \
+           -scheme Demo \
+           -configuration Release \
+           -sdk iphoneos \
+           -derivedDataPath build \
+           CODE_SIGN_IDENTITY="" \
+           CODE_SIGNING_REQUIRED=NO \
+           CODE_SIGNING_ALLOWED=NO || exit 1
 
       - name: 检查编译产物
-        run: ls -la build/Release-iphoneos/
+        run: ls -la build/Build/Products/Release-iphoneos/
 
       - name: 打包为标准IPA
         run: |
-          cd build/Release-iphoneos
+          cd build/Build/Products/Release-iphoneos/
           mkdir -p Payload
           mv *.app Payload/
           zip -r demo.ipa Payload/
