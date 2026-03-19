@@ -5,6 +5,76 @@
 	};
 	objectVersion = 56;
 	objects = {
+		/* 项目根对象 */
+		00E356F12A9E7D0B00CFB121 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1600;
+				ORGANIZATIONNAME = "";
+			};
+			buildConfigurationList = 00E356F42A9E7D0B00CFB121 /* Build configuration list for PBXProject "Demo" */;
+			compatibilityVersion = "Xcode 15.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 00E356F22A9E7D0B00CFB121;
+			productRefGroup = 00E356F32A9E7D0B00CFB121 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				00C302E52A9E7D1700CFB121 /* Demo */,
+			);
+		};
+
+		/* 主分组 */
+		00E356F22A9E7D0B00CFB121 = {
+			isa = PBXGroup;
+			children = (
+				00C302E62A9E7D1700CFB121 /* Info.plist */,
+				00C302E72A9E7D1700CFB121 /* main.m */,
+				00E356F32A9E7D0B00CFB121 /* Products */,
+			);
+			name = Demo;
+			sourceTree = "<group>";
+		};
+
+		/* Products分组 */
+		00E356F32A9E7D0B00CFB121 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				00C302E42A9E7D1700CFB121 /* Demo.app */,
+			);
+			name = Products;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+
+		/* 项目构建配置 */
+		00E356F42A9E7D0B00CFB121 /* Build configuration list for PBXProject "Demo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				00E356F52A9E7D0B00CFB121 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+
+		/* 项目Release配置 */
+		00E356F52A9E7D0B00CFB121 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+
+		/* 应用Target */
 		00C302E52A9E7D1700CFB121 /* Demo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00C302E82A9E7D1700CFB121 /* Build configuration list for PBXNativeTarget "Demo" */;
@@ -20,10 +90,48 @@
 			productReference = 00C302E42A9E7D1700CFB121 /* Demo.app */;
 			productType = "com.apple.product-type.application";
 		};
-		00C302E42A9E7D1700CFB121 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		00C302E62A9E7D1700CFB121 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00C302E72A9E7D1700CFB121 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		00C302E22A9E7D1700CFB121 /* Sources */ = {isa = PBXSourcesBuildPhase; files = (00C302E72A9E7D1700CFB121 /* main.m */,); runOnlyForDeploymentPostprocessing = 0; };
+
+		/* 应用.app引用 */
+		00C302E42A9E7D1700CFB121 /* Demo.app */ = {
+			isa = PBXFileReference;
+			explicitFileType = wrapper.application;
+			includeInIndex = 0;
+			path = Demo.app;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+
+		/* Info.plist引用 */
+		00C302E62A9E7D1700CFB121 /* Info.plist */ = {
+			isa = PBXFileReference;
+			lastKnownFileType = text.plist.xml;
+			path = Demo/Info.plist;
+			sourceTree = "<group>";
+		};
+
+		/* main.m引用 */
+		00C302E72A9E7D1700CFB121 /* main.m */ = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.objc;
+			path = Demo/main.m;
+			sourceTree = "<group>";
+		};
+
+		/* 源码编译阶段 */
+		00C302E22A9E7D1700CFB121 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+				00C302E32A9E7D1700CFB121 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+
+		/* main.m编译文件引用 */
+		00C302E32A9E7D1700CFB121 /* main.m in Sources */ = {
+			isa = PBXBuildFile;
+			fileRef = 00C302E72A9E7D1700CFB121 /* main.m */;
+		};
+
+		/* Target构建配置列表 */
 		00C302E82A9E7D1700CFB121 /* Build configuration list for PBXNativeTarget "Demo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -32,6 +140,8 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+
+		/* Target Release配置 */
 		00C302E92A9E7D1700CFB121 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -41,7 +151,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				INFOPLIST_FILE = Info.plist;
+				INFOPLIST_FILE = Demo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -49,47 +159,6 @@
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGNING_REQUIRED = NO;
 				CODE_SIGNING_ALLOWED = NO;
-			};
-			name = Release;
-		};
-		00E356F12A9E7D0B00CFB121 /* Project object */ = {
-			isa = PBXProject;
-			attributes = {
-				BuildIndependentTargetsInParallel = 1;
-				MainGroup = 00E356F22A9E7D0B00CFB121;
-			};
-			buildConfigurationList = 00E356F42A9E7D0B00CFB121 /* Build configuration list for PBXProject "Demo" */;
-			compatibilityVersion = "Xcode 15.0";
-			developmentRegion = English;
-			hasScannedForEncodings = 0;
-			knownRegions = (en);
-			productRefGroup = 00E356F32A9E7D0B00CFB121 /* Products */;
-			projectDirPath = "";
-			projectRoot = "";
-			targets = (00C302E52A9E7D1700CFB121 /* Demo */);
-		};
-		00E356F22A9E7D0B00CFB121 = {
-			isa = PBXGroup;
-			children = (
-				00C302E62A9E7D1700CFB121 /* Info.plist */,
-				00C302E72A9E7D1700CFB121 /* main.m */,
-				00E356F32A9E7D0B00CFB121 /* Products */,
-			);
-			path = Demo;
-			sourceTree = "<group>";
-		};
-		00E356F32A9E7D0B00CFB121 /* Products */ = {isa = PBXGroup; children = (00C302E42A9E7D1700CFB121 /* Demo.app */,); name = Products; sourceTree = BUILT_PRODUCTS_DIR; };
-		00E356F42A9E7D0B00CFB121 /* Build configuration list for PBXProject "Demo" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (00E356F52A9E7D0B00CFB121 /* Release */);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		00E356F52A9E7D0B00CFB121 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				SDKROOT = iphoneos;
-				CODE_SIGN_IDENTITY = "";
 			};
 			name = Release;
 		};
