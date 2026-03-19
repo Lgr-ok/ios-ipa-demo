@@ -1,58 +1,53 @@
-name: 打包无签名IPA
+name: Build iOS IPA
+
 on:
-  workflow_dispatch:  # 手动触发打包
+  push:
+    branches: [ main ]  # 触发分支，可根据你的需求修改
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build:
-    runs-on: macos-latest  # 必须用macOS环境编译iOS项目
+    runs-on: macos-latest  # 必须用macOS环境
+    
     steps:
-      - name: 拉取代码
-        uses: actions/checkout@v5
-
-      - name: 打印完整项目结构（排查用）
-        run: |
-          ls -R
-          echo "--- 检查project.pbxproj版本和路径 ---"
-          cat Demo.xcodeproj/project.pbxproj | grep -E "objectVersion|Info.plist|main.m"
-
-      - name: 无签名编译.app（修复命令格式）
-        run: |
-          xcodebuild -project Demo.xcodeproj \
-                     -scheme Demo \
-                     -configuration Release \
-                     -sdk iphoneos \
-                     -derivedDataPath build \
-                     CODE_SIGN_IDENTITY="" \
-                     CODE_SIGNING_REQUIRED=NO \
-                     CODE_SIGNING_ALLOWED=NO || exit 1  # 编译失败直接终止
-
-      - name: 检查编译产物是否存在
-        run: |
-          # 检查.app文件是否生成
-          if [ ! -d "build/Build/Products/Release-iphoneos/Demo.app" ]; then
-              echo "错误：编译产物Demo.app不存在！"
-              exit 1
-          fi
-          ls -la build/Build/Products/Release-iphoneos/
-
-      - name: 打包为标准IPA
-        run: |
-          # 进入正确的编译产物目录
-          cd build/Build/Products/Release-iphoneos/
-          # 创建Payload目录（iOS IPA必须的结构）
-          mkdir -p Payload
-          # 移动.app文件到Payload（IPA核心结构）
-          mv Demo.app Payload/
-          # 打包成IPA文件
-          zip -r demo.ipa Payload/
-          # 清理临时目录
-          rm -rf Payload
-          # 打印IPA信息，确认生成成功
-          ls -la | grep demo.ipa
-
-      - name: 上传IPA供下载（修复上传路径）
-        uses: actions/upload-artifact@v4
-        with:
-          name: my-ipa  # 下载包的名称
-          path: build/Build/Products/Release-iphoneos/demo.ipa  # IPA实际生成路径
-          retention-days: 30  # 保留30天，方便下载
+    - uses: actions/checkout@v4
+    
+    - name: Set Xcode version
+      run: sudo xcode-select -s /Applications/Xcode_16.4.app/Contents/Developer  # 匹配你的Xcode版本
+    
+    - name: Build iOS App
+      run: |
+        # 编译App（修复BundleID和ProductName）
+        xcodebuild -project Demo.xcodeproj \
+          -scheme Demo \
+          -configuration Release \
+          -sdk iphoneos \
+          -derivedDataPath build \
+          CODE_SIGN_IDENTITY="" \
+          CODE_SIGNING_REQUIRED=NO \
+          CODE_SIGNING_ALLOWED=NO \
+          PRODUCT_BUNDLE_IDENTIFIER="com.yourname.Demo" \
+          PRODUCT_NAME="Demo"
+    
+    - name: Fix Executable Permissions (核心修复)
+      run: |
+        # 找到App包路径
+        APP_PATH="build/Build/Products/Release-iphoneos/Demo.app"
+        # 获取可执行文件名称
+        EXECUTABLE_NAME=$(defaults read "$APP_PATH/Info.plist" CFBundleExecutable)
+        # 添加执行权限（解决二进制文件无权限问题）
+        chmod +x "$APP_PATH/$EXECUTABLE_NAME"
+    
+    - name: Package IPA
+      run: |
+        # 创建IPA打包目录
+        mkdir -p Payload
+        cp -R build/Build/Products/Release-iphoneos/Demo.app Payload/
+        zip -r Demo.ipa Payload/
+    
+    - name: Upload IPA Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: Demo-IPA
+        path: Demo.ipa
