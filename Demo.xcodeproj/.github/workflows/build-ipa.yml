@@ -1,0 +1,34 @@
+name: 打包无签名IPA
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: 拉取代码
+        uses: actions/checkout@v4
+
+      - name: 编译生成.app
+        run: |
+          xcodebuild build \
+            -project Demo.xcodeproj \
+            -scheme Demo \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO
+
+      - name: 打包成IPA
+        run: |
+          cd build/Release-iphoneos
+          mkdir Payload
+          mv Demo.app Payload/
+          zip -r demo.ipa Payload/
+
+      - name: 上传IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-ipa
+          path: build/Release-iphoneos/demo.ipa
